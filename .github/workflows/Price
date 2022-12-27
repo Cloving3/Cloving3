@@ -1,0 +1,96 @@
+SELECT * FROM db_m7.product;
+Select P_Code, P_descript, P_Price, P_QOH
+From Product;
+
+Select P_descript, P_QOH, P_Price, P_MIN
+From Product;
+
+Select V_Code, V_Name, V_Contact, V_AreaCode, V_Phone, V_State, V_Order
+From Vendor;
+
+Select P_Code, V_Code, V_Name
+From Product Join Vendor using (V_Code);
+
+Select P_Code, Product.V_Code, V_Name
+From Product Join Vendor on Product.V_Code=Vendor.V_code;
+
+Select*
+From Product Join Vendor on Product.V_Code=Vendor.V_code;
+
+Select P_Code, Vendor.V_Code, V_Name
+From Product Left Outer Join Vendor on Product.V_Code=Vendor.V_code;
+
+Select *
+From Product right Outer Join Vendor on Product.V_Code=Vendor.V_code;
+
+Select P_Code, P_descript, P_Price, P_QOH
+From Product
+order by P_Code asc;
+
+
+Select P_Code, P_descript, P_Price, P_QOH
+From Product
+order by P_Price desc;
+
+Select  P_descript, P_Price, P_QOH, V_code
+From Product
+Where V_code!=11111
+
+Select  P_descript, P_Price, P_QOH, V_code
+From Product
+Where V_code=11111
+
+Select P_Descript, P_Price, Vendor.V_Code, V_Name, V_Areacode, V_Phone
+From Product Left Outer Join Vendor on Product.V_Code=Vendor.V_code;
+
+Select  P_descript, P_Price, P_QOH, V_code
+From Product
+Where V_code>=100
+
+Select  P_descript, P_Price, P_QOH, P_Min, P_indate, V_code
+From Product
+Where P_Indate>=01/01/2026
+
+Select  P_descript, P_Price, P_QOH, P_Min, P_indate, V_code
+From Product
+Where P_Indate>=01/01/2026
+
+Select  P_descript, P_Price, P_QOH, V_code
+From Product
+Where V_code= 21225 or v_code=1111 or P_code>40
+
+Select  P_descript, P_Price, P_QOH, V_code
+From Product
+Where (V_code= 21225 or v_code=1111) and P_code>40;
+
+Select  P_descript, P_Price, P_QOH, V_code
+From Product
+Where V_code= 21225 or v_code=1111
+
+Select  P_descript, P_Price, P_QOH, V_code
+From Product
+Where P_Price>=100 and P_QOH>10
+
+Select  P_descript, P_Price, P_QOH, V_code
+From Product
+Where P_Price>=100 and P_QOH>10
+
+Select  P_descript, P_indate, P_Price, P_QOH, P_Min, P_discount, V_code
+From Product
+Where V_code <21344
+
+Select V_Name, V_contact, V_areacode, V_phone
+From Vendor
+Where V_contact like 'smith%';
+
+SELECT *
+FROM PRODUCT
+WHERE P_PRICE BETWEEN 100 AND 10000;
+
+SELECT *
+FROM PRODUCT
+WHERE V_CODE IN (21225, 11111);
+
+Select  P_descript, P_Code, V_code
+From Product
+Where V_Code is null
