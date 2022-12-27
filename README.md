@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @Cloving3
-- 👀 I’m interested in ...Codeing and all things technology
+- 👀 I’m interested in ...Coding and all things technology
 - 🌱 I’m currently learning ... SQL
 - 💞️ I’m looking to collaborate on ... still trying to figure that out
 - 📫 How to reach me ...Linkedin
