@@ -1,0 +1,72 @@
+Create Database DB_ChristianLoving;
+
+USE DB_ChristianLoving;
+
+Create Table Vendor (
+	V_CODE	int	NOT NULL,
+    V_NAME	varchar(30) not null,
+    V_CONTACT  varchar(50) not null,
+    V_AREACODE	char(3) NOT null,
+    V_PHONE	char(8) NOT null,
+    V_State	char(2)	NOT null,
+    V_ORDER	char(1) NOT null,
+    constraint	VENDOR_PK	primary key (V_CODE)
+);
+
+	Create Table Product (
+	P_Code		varchar(10) NOT null,
+    P_Descript	varchar(35) NOT Null,
+    P_Indate	datetime	Not Null,
+    P_QOH		smallint	Not Null,
+    P_Min		smallint	Not null,
+    P_Price		decimal(8,2)	Not Null,
+    P_Discount	decimal(5,2)	Not Null,
+    V_Code		int		Not NUll,
+    Constraint 	Product_PK	Primary Key (P_Code),
+	Constraint 	Product_FK	Foreign Key	(V_Code)	References	Vendor(V_Code)
+		ON Update Cascade
+        ON Delete No Action
+);
+
+Create Table Customer (
+	Cus_Code		int			Not NULL,
+    Cus_LNAME		varchar(15)	NOT NULL,
+    Cus_Fname		varchar(15)	Not Null,
+    Cus_initial		char(1)		Not Null,
+    Cus_Areacode	char(3)		default	"615"	check(Cus_areacode in ('615', '713', '931')),
+    Cus_Phone		char(8)		Not Null,
+    Cus_Balance		decimal(9,2)	Default 0.00,
+    Constraint	Customer_PK Primary Key (Cus_Code),
+    Constraint	CUS_Uni unique	(cus_lname, cus_fname, cus_Initial)
+);
+
+Create Table INVOICE (
+	INV_NUMBER			int				NOT NULL, 
+    CUS_CODE			int				NOT NULL,
+	INV_DATE			date			NOT NULL	CHECK(INV_DATE>'2018-01-01'),
+	INV_TOTAL			DECIMAL(10,2)	NOT NULL,
+    CONSTRAINT	INVOICE_PK	PRIMARY KEY	(INV_NUMBER),
+    CONSTRAINT	INVOICE_PK	FOREIGN KEY	(CUS_CODE)	REFERENCES iNVOICE(INV_NUMBER)
+		ON UPDATE CASCADE
+        ON DELETE NO ACTION
+);
+CREATE TABLE LINE (
+	INV_NUMBER	int	NOT NULL, 
+    LINE_NUMBER	int	NOT NULL,
+    P_CODE		VARCHAR(10)		NOT NULL,
+    LINE_UNITS	DECIMAL(9,2)	NOT NULL,
+    LINE_PRICE	DECIMAL(9,2)	NOT NULL,
+    CONSTRAINT	LINE_PK	PRIMARY KEY	(INV_NUMBER, LINE_NUMBER),
+    CONSTRAINT	LINE_FK1	FOREIGN KEY	(INV_NUMBER)	REFERENCES INVOICE(INV_NUMBER)
+		ON UPDATE CASCADE
+        ON DELETE CASCADE,
+	CONSTRAINT LINE_FK2		FOREIGN KEY (P_CODE)	REFERENCES PRODUCT(P_CODE)
+		ON UPDATE CASCADE
+        ON DELETE NO ACTION
+);
+Alter Table Product
+	modify column P_indate date;
+Alter Table Product
+	Add (P_salescode char(1));
+Alter Table Invoice
+	Drop Column Inv_Total;
